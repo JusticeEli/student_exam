@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "510452180533",
+    "firebase_url": "https://exam-app-3e1a6.firebaseio.com",
+    "project_id": "exam-app-3e1a6",
+    "storage_bucket": "exam-app-3e1a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510452180533:android:61aa51b2aea7b32645f37c",
+        "android_client_info": {
+          "package_name": "com.justice.studentexam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510452180533-vu23i7a40u58qiukhntqsgshdu8kst8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.justice.studentexam",
+            "certificate_hash": "a750750b75522391484378f5e5806f12824dc71e"
+          }
+        },
+        {
+          "client_id": "510452180533-7rfk6om4e23fedgpumg7si5qhiitqom0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASmuE5U6uv8BjJOnBKtQrd4T665p8mbUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510452180533-7rfk6om4e23fedgpumg7si5qhiitqom0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#9C27B0</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@android:color/holo_blue_bright</item>
+        <item name="android:radioButtonStyle">@android:color/holo_blue_bright</item>
+
+        <!--    <item name="android:windowTranslucentStatus">true</item>
+          <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+       -->
+    </style>
+
+
+</resources>
