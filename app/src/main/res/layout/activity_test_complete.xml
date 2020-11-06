@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/progressBar"
+        android:layout_height="wrap_content"/>
+
 
     <TextView
         android:id="@+id/results_title"
@@ -100,7 +109,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:text="Name"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorAccent"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_missed" />
@@ -111,7 +120,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:text="Student Id"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorAccent"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameLabelTxtView" />
@@ -151,13 +160,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_wrong_text" />
     <TextView
+
         android:id="@+id/nameTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:text="NA"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorAccent"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_missed_text" />
@@ -168,7 +178,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:text="NA"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorAccent"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTxtView" />

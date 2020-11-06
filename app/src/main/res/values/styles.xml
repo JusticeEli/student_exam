@@ -9,9 +9,9 @@
         <item name="android:textColor">@android:color/holo_blue_bright</item>
         <item name="android:radioButtonStyle">@android:color/holo_blue_bright</item>
 
-        <!--    <item name="android:windowTranslucentStatus">true</item>
-          <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-       -->
+<!--      setting not action bar-->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
 

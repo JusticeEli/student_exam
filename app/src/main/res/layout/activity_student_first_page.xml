@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+
+    android:background="@android:color/darker_gray"
     tools:context=".StudentFirstPageActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -48,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Id"
+        android:hint="Student Reg Id"
         app:boxBackgroundMode="outline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,13 +61,14 @@
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/codeEdtTxt"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="CODE"
+        android:hint="School Code"
         app:boxBackgroundMode="outline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,10 +76,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/submitBtn"
         android:layout_width="match_parent"
@@ -86,6 +89,7 @@
         android:text="Submit"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@+id/codeEdtTxt" />
+
     <Button
         android:id="@+id/logoutBtn"
         android:layout_width="match_parent"
@@ -94,14 +98,16 @@
         android:backgroundTint="@color/colorPrimary"
         android:text="exit"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/submitBtn" />
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/submitBtn"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/idEdtTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

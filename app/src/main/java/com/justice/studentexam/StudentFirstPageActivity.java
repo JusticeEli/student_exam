@@ -14,11 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,9 @@ public class StudentFirstPageActivity extends AppCompatActivity {
     private TextInputLayout lastNameEdtTxt;
     private TextInputLayout idEdtTxt;
     private TextInputLayout codeEdtTxt;
-    public static final String CODE = "code";
+    public static final String SHARED_PREF_CODE = "code";
+    public static final String SHARED_PREF_STUDENT = "student";
+    public static final String SHARED_PREF = "data";
     private Button submitBtn;
     private Button logoutBtn;
 
@@ -46,28 +47,36 @@ public class StudentFirstPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_first_page);
-        sharedPreferences = getSharedPreferences(CODE, MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         initWidgets();
         setOnClickListeners();
         setDefaultValues();
 
-        //      setUplogin();
+
     }
 
     private void setDefaultValues() {
-        sharedPreferences = getSharedPreferences(CODE, MODE_PRIVATE);
-        if (sharedPreferences.getString(CODE, null) != null) {
-            Log.d(TAG, "setDefaultValues: default code is available");
-            setDefaultCodeToEdtTxt();
+        if (sharedPreferences.getString(SHARED_PREF_CODE, null) != null) {
+            Log.d(TAG, "setDefaultValues: default data is available");
+            setDefaultDataToEdtTxt();
         } else {
-            Log.d(TAG, "setDefaultValues: default code is not available");
+            Log.d(TAG, "setDefaultValues: default data is not available");
         }
     }
 
-    private void setDefaultCodeToEdtTxt() {
-        String code = sharedPreferences.getString(CODE, null);
-        ApplicationClass.code = code;
-        codeEdtTxt.getEditText().setText(code);
+    private void setDefaultDataToEdtTxt() {
+        //setting student
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(SHARED_PREF_STUDENT, "");
+        ApplicationClass.student = gson.fromJson(json, Student.class);
+
+        firstNameEdtTxt.getEditText().setText(ApplicationClass.student.getFirstName());
+        lastNameEdtTxt.getEditText().setText(ApplicationClass.student.getLastName());
+        idEdtTxt.getEditText().setText(ApplicationClass.student.getStudentId());
+
+        //setting code
+        ApplicationClass.code = sharedPreferences.getString(SHARED_PREF_CODE, null);
+        codeEdtTxt.getEditText().setText(ApplicationClass.code);
     }
 
 //
@@ -103,15 +112,10 @@ public class StudentFirstPageActivity extends AppCompatActivity {
             Toasty.error(StudentFirstPageActivity.this, "please fill the code").show();
             return;
         }
-        String code = codeEdtTxt.getEditText().getText().toString().trim();
-        ApplicationClass.code = code;
-        sharedPreferences.edit().putString(CODE, code).apply();
-
-        Log.d(TAG, "onClick: code saved in shared preference");
         ///////////////
         String firstName = firstNameEdtTxt.getEditText().getText().toString().trim();
         String lastName = lastNameEdtTxt.getEditText().getText().toString().trim();
-        String studentId = idEdtTxt.getEditText().getText().toString().trim().replace("/","");
+        String studentId = idEdtTxt.getEditText().getText().toString().trim().replace("/", "");
 
         if (field_is_empty(firstName, lastName, studentId)) {
             Toasty.error(this, "please fill all fields").show();
@@ -119,12 +123,29 @@ public class StudentFirstPageActivity extends AppCompatActivity {
             return;
         }
 
-        ApplicationClass.student = new Student(firstName, lastName,studentId);
+        ApplicationClass.student = new Student(firstName, lastName, studentId);
         ApplicationClass.code = codeEdtTxt.getEditText().getText().toString().trim();
+        saveDataInSharedPreference();
+
 
         Log.d(TAG, "onSubmitButtonClicked: getting all questions");
         get_all_the_questions_and_start_the_test();
 
+
+    }
+
+    private void saveDataInSharedPreference() {
+        //saving code
+        sharedPreferences.edit().putString(SHARED_PREF_CODE, ApplicationClass.code).apply();
+
+        //saving student
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(ApplicationClass.student);
+        prefsEditor.putString(SHARED_PREF_STUDENT, json);
+        prefsEditor.apply();
+
+        Log.d(TAG, "saveDataInSharedPreference: data saved in shared preference");
 
     }
 
@@ -151,7 +172,7 @@ public class StudentFirstPageActivity extends AppCompatActivity {
                     startActivity(new Intent(StudentFirstPageActivity.this, TestActivity.class));
 
                 } else {
-                    Log.d(TAG, "onComplete: Error"+task.getException());
+                    Log.d(TAG, "onComplete: Error" + task.getException());
                     Toast.makeText(StudentFirstPageActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 progressBar.setVisibility(View.GONE);

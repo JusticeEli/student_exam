@@ -2,6 +2,7 @@ package com.justice.studentexam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -20,9 +21,10 @@ import static com.justice.studentexam.ApplicationClass.COLLECTION_ALL_RESULTS;
 import static com.justice.studentexam.ApplicationClass.COLLECTION_RESULTS;
 
 public class TestCompleteActivity extends AppCompatActivity {
+    private static final String TAG = "TestCompleteActivity";
+    private FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
 
-    private FirebaseFirestore firebaseFirestore;
-
+    private ProgressBar progressBar;
     private TextView resultCorrect;
     private TextView resultWrong;
     private TextView resultMissed;
@@ -41,12 +43,13 @@ public class TestCompleteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_complete);
         initWidgets();
-        init_firestore();
         setOnClickListeners();
         getResults();
     }
 
     private void getResults() { //Get Results
+        Log.d(TAG, "getResults: started loading results...");
+
         firebaseFirestore
                 .collection(COLLECTION_ALL_RESULTS)
                 .document(ApplicationClass.code)
@@ -55,6 +58,8 @@ public class TestCompleteActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful() && task.getResult().exists()) {
+                    progressBar.setVisibility(View.GONE);
+                    Log.d(TAG, "onComplete: finished loading results data");
                     Student student = task.getResult().toObject(Student.class);
                     Results results = student.getResults();
                     Long correct = results.getCorrect();
@@ -74,7 +79,7 @@ public class TestCompleteActivity extends AppCompatActivity {
 
 
                     ///setting name and student id
-                    nameTxtView.setText(ApplicationClass.student.getFirstName()+" "+ApplicationClass.student.getLastName());
+                    nameTxtView.setText(ApplicationClass.student.getFirstName() + " " + ApplicationClass.student.getLastName());
                     studentIdTxtView.setText(ApplicationClass.student.getStudentId());
                 }
             }
@@ -92,6 +97,7 @@ public class TestCompleteActivity extends AppCompatActivity {
     }
 
     private void initWidgets() {  //Initialize UI Elements
+        progressBar = findViewById(R.id.progressBar);
         resultCorrect = findViewById(R.id.results_correct_text);
         resultWrong = findViewById(R.id.results_wrong_text);
         resultMissed = findViewById(R.id.results_missed_text);
@@ -105,10 +111,7 @@ public class TestCompleteActivity extends AppCompatActivity {
 
     }
 
-    private void init_firestore() {
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
-    }
 }
 
 
